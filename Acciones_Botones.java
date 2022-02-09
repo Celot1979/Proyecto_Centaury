@@ -47,7 +47,12 @@ public class Acciones_Botones implements ActionListener {
 				// TODO Auto-generated catch block
 				System.out.println("No se ha podido mostrar los contactos");
 			}
+		}if(btn3 == e.getSource()) {
+			Modificar_Registros Modificar = new Modificar_Registros();
+			Modificar.setVisible(true);
 		}
+		
+		
 
 
 		if(btn5 == e.getSource()) {
@@ -64,5 +69,6 @@ public class Acciones_Botones implements ActionListener {
 
 
 }
+
 
 
