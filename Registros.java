@@ -256,7 +256,7 @@ class LaminaImagen_Fondo extends JPanel{
 
 			//e.printStackTrace();
 
-			System.out.println("Un eerrorr");
+			System.out.println("Un error");
 
 		}
 
