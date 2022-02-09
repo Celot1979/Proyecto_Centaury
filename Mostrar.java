@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
@@ -12,9 +14,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JTextArea;
@@ -25,6 +30,7 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.Color;
 import java.awt.Font;
 
+
 public class Mostrar extends JFrame {
 	
 	private JPanel contentPane;
@@ -34,7 +40,7 @@ public class Mostrar extends JFrame {
 	private static String url = "jdbc:postgresql://127.0.0.1:5432/base_datos_dani_db";
     private  static Connection connection;
     private JTextArea contenido;
-    private JTextField cid;
+    private JTextField cid,textBuscar;
     private JTable table_1;
 
 
@@ -69,7 +75,7 @@ public class Mostrar extends JFrame {
 	
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(24, 23, 760,150);
+		scrollPane.setBounds(24, 200, 760,300);
 		laminaImagen_Fondo_Mostrar.add(scrollPane);
 		PreparedStatement stml =null;
 		ResultSet resultados = null;
@@ -107,45 +113,70 @@ public class Mostrar extends JFrame {
 		
 		scrollPane.setViewportView(table);
 		
-		/*JTextArea textArea = new JTextArea();
-		textArea.setBounds(60, 93, 294, 260);
-		laminaImagen_Fondo_Mostrar.add(textArea);*/
-		/*try {
-			DefaultTableModel modelo = new DefaultTableModel();
-			table = new JTable();
-			table.setModel(modelo);
-			
-			PreparedStatement ps = null;
-			ResultSet rs = null;
-			
-			String sql = "SELECT nombre,apellido,movil,fijo,anotacion FROM registro";
+		JLabel lblBuscar = new JLabel("Buscar");
+		lblBuscar.setIcon(new ImageIcon("/home/dani/eclipse-workspace/CRUD_WB/src/IMG/BT1.png"));
+		lblBuscar.setForeground(new Color(255, 140, 0));
+		lblBuscar.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
+		lblBuscar.setBounds(48, 48, 134, 16);
+		laminaImagen_Fondo_Mostrar.add(lblBuscar);
+		textBuscar = new JTextField();
+		textBuscar.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+				
+				Buscar(textBuscar.getText());
+			}
+		});
+		textBuscar.setForeground(new Color(255, 140, 0));
+		textBuscar.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
+		textBuscar.setBounds(150, 43, 130, 26);
+		laminaImagen_Fondo_Mostrar.add(textBuscar);
+		textBuscar.setColumns(10);
+		
+	}
+	public void Buscar(String nombre) {
+		try {
 			connection= DriverManager.getConnection(url, user, pass);
-			ps = connection.prepareStatement(sql);
-			
-			rs = ps.executeQuery();
-			
-			ResultSetMetaData rsMd = rs.getMetaData();
-			
-			int cantidadColumnas = rsMd.getColumnCount();
-			
+			DefaultTableModel modelo = new DefaultTableModel();
 			modelo.addColumn("ID");
 			modelo.addColumn("Nombre");
 			modelo.addColumn("Apellido");
 			modelo.addColumn("Móvil");
 			modelo.addColumn("Fijo");
 			modelo.addColumn("Anotación");
+			table.setModel(modelo);
 			
-			while(rs.next()) {
-				Object[] filas = new Object[cantidadColumnas];
-				for (int i = 0; i < cantidadColumnas;i++) {
-					filas[i] = rs.getObject(i+1);
-				}
-				modelo.addRow(filas);
+			String sql3 =" ";
+			
+			if(nombre.equals(" ")) {
+				sql3 = "SELECT * FROM registro";
+			}else {
+				sql3 = "SELECT * FROM registro WHERE nombre like '%"+nombre+"%' ";
 			}
 			
-		}catch(SQLException ex) {
-			System.out.println(ex.toString());
-		}*/
+			String usuarios[] = new String[6];
+			try {
+				Statement set = connection.createStatement();
+				ResultSet resul = set.executeQuery(sql3);
+				while(resul.next()){
+					usuarios[0] = resul.getString(1);
+					usuarios[1] = resul.getString(2);
+					usuarios[2] = resul.getString(3);
+					usuarios[3] = resul.getString(4);
+					usuarios[4] = resul.getString(5);
+					usuarios[5] = resul.getString(6);
+					modelo.addRow(usuarios);
+				}
+				
+				table.setModel(modelo);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		
 	}
