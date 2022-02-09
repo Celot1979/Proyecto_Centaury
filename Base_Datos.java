@@ -113,3 +113,4 @@ public class Base_Datos {
     private JTextArea contenido;
     private JTextField cid;
 }
+
