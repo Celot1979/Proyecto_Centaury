@@ -62,7 +62,7 @@ public class Mostrar extends JFrame {
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(1200,400,800,600);
-		Aplicacion.LaminaImagen_Fondo_Mostrar laminaImagen_Fondo_Mostrar = new LaminaImagen_Fondo_Mostrar();
+		Aplicacion.Fondo_Amplio laminaImagen_Fondo_Mostrar = new Fondo_Amplio ();
 		getContentPane().add(laminaImagen_Fondo_Mostrar);
 		laminaImagen_Fondo_Mostrar.setLayout(null);
 		
