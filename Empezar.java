@@ -174,6 +174,11 @@ public class Empezar extends JFrame {
 		btn3 = new JButton("Modificar  Contactos");
 
 		btn3.setHorizontalAlignment(SwingConstants.LEFT);
+		Acciones_Botones tres = new Acciones_Botones(btn1,btn2,btn3,btn4,btn5);
+
+		btn3.addActionListener(tres);
+
+		laminaImagen.add(btn3);
 
 		btn3.setIcon(new ImageIcon("/home/dani/eclipse-workspace/CRUD_WB/src/IMG/BT1.png"));
 
