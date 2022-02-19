@@ -195,10 +195,7 @@ public class Registros extends JFrame {
 		JButton btn1_Registrar = new JButton("Registrar");
 		btn1_Registrar.setBounds(60, 510, 117, 29);
 		btn1_Registrar.addActionListener(new ActionListener() {
-
-
 			@Override
-
 			public void actionPerformed(ActionEvent e) {
 				Base_Datos.initConnection();
 				String nom = textNombre.getText();
@@ -206,12 +203,35 @@ public class Registros extends JFrame {
 				String mov = textMovil.getText();
 				String fij = textFijo.getText();
 				String cano = textArea .getText();
-				System.out.println("Procesado Registro");
-				Base_Datos.Crear(nom, ape, mov, fij, cano);
-				
-				
+				if(nom.isEmpty() || ape.isEmpty() || mov.isEmpty() || fij.isEmpty() || cano.isEmpty()) {
+					if(control ==false && cantidad == 0) {
+						JOptionPane.showMessageDialog(null, "Debe de rellenar los campos para poder efectuar el registro",
+								"Atención!", JOptionPane.ERROR_MESSAGE);
+					}
+				}else {
+					control = true;
+				}
+				try {
+					if (control == true) {
+						Base_Datos.Crear(nom, ape, mov, fij, cano);
+						JOptionPane.showMessageDialog(null, "Registro efectuado");
+						textNombre.setText("");
+						textApellido.setText("");
+						textMovil.setText("");
+						textFijo.setText("");
+						textArea.setText("");
+						int Opcion = JOptionPane.showConfirmDialog(null, "Deseas realizar otro registro");
+						
+						if ( Opcion ==0) {
+							System.out.println("Continuamos");
+						}else if(Opcion == 1) {
+							dispose();
+						}
+					}
+				}catch(Exception v1) {
+					JOptionPane.showMessageDialog(null, "No se ha podido efectuar el registro");
+				}
 			}
-
 		});
 
 		laminaImagen_Fondo.add(btn1_Registrar);
