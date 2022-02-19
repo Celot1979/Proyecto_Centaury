@@ -126,7 +126,7 @@ public class Registros extends JFrame {
 			@Override
 			public void keyTyped(KeyEvent e) {
 				char c = e.getKeyChar();
-				if((c < 'a' || c > 'z') && (c < 'A' || c > 'Z') && (c != KeyEvent.VK_SPACE)) e.consume();
+				if((c < 'a' || c > 'z') && (c < 'A' || c > 'Z') && (c != KeyEvent.VK_SPACE) && (c == KeyEvent.VK_DEAD_TILDE) e.consume();
 			}
 		});
 		textNombre.setForeground(new Color(218, 165, 32));
@@ -140,7 +140,7 @@ public class Registros extends JFrame {
 			@Override
 			public void keyTyped(KeyEvent e) {
 				char c = e.getKeyChar();
-				if((c < 'a' || c > 'z') && (c < 'A' || c > 'Z')&& (c != KeyEvent.VK_SPACE)) e.consume();
+				if((c < 'a' || c > 'z') && (c < 'A' || c > 'Z')&& (c != KeyEvent.VK_SPACE)&& (c == KeyEvent.VK_DEAD_TILDE) e.consume();
 			}
 		});
 		textApellido.setForeground(new Color(218, 165, 32));
