@@ -1,6 +1,7 @@
 package Aplicacion;
 
 
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -23,7 +24,7 @@ public class Validacion {
 		}
 	}
 	
-	public static void Nombre(JTable table,String x, String opcion, DefaultTableModel modelo) {
+	public static void Nombre(JTable table,String x, DefaultTableModel modelo) {
 		table = table;
 		x = x;
 		modelo = modelo;
@@ -46,7 +47,7 @@ public class Validacion {
 				x = JOptionPane.showInputDialog("Introducce el nombre sin números ni caracteres: ");
 				modelo.setValueAt(x, fila, 1);
 				int id = Integer.parseInt(table.getValueAt(fila, 0).toString());
-				String sql2 ="Update registro SET  '"+opcion+"' = '"+x+"'  WHERE id = '"+id+"'";
+				String sql2 ="Update registro SET  nombre = '"+x+"'  WHERE id = '"+id+"'";
 				PreparedStatement actu;
 				try {
 					actu = connection.prepareStatement(sql2);
@@ -77,12 +78,13 @@ public class Validacion {
 	}
 	
 
-	public static void Apellido(JTable table,String y,  DefaultTableModel modelo) {
+	public static void Apellido(JTable table,String y,DefaultTableModel modelo) {
 		table = table;
 		y = y;
 		modelo = modelo;
 		isNumeric = true;
 		contador =1;
+		opcion = opcion;
 		
 		int fila = table.getSelectedRow();
 		
@@ -95,9 +97,8 @@ public class Validacion {
 				isNumeric = true;
 				y = " ";
 				modelo.setValueAt(y, fila, 2);
-				JOptionPane.showMessageDialog(null, "Hay un bug. No se puede modificar el registro porque no se admite números!",
-						"Atención!", JOptionPane.ERROR_MESSAGE);
-				y = JOptionPane.showInputDialog("Introducce el nombre sin números ni caracteres: ");
+				JOptionPane.showMessageDialog(null, "No se admite números!!!!","Atención!", JOptionPane.ERROR_MESSAGE);
+				y = JOptionPane.showInputDialog("Introducce el apellido sin números ni caracteres: ");
 				modelo.setValueAt(y, fila, 2);
 				int id = Integer.parseInt(table.getValueAt(fila, 0).toString());
 				String sql2 ="Update registro SET  apellido = '"+y+"'  WHERE id = '"+id+"'";
@@ -108,7 +109,7 @@ public class Validacion {
 					JOptionPane.showMessageDialog(null, "Modificado en la validación");
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
-					System.out.println("Fallo de validación de número");
+					System.out.println("Fallo de validación de número método apellido");
 				}
 
 			}else if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == ' '){
@@ -125,7 +126,7 @@ public class Validacion {
 		}else {
 			//System.out.println("Letra");
 			while(isNumeric == false && contador2 == 1) {
-				nombre = table.getValueAt(fila, 1).toString();
+				apellido = table.getValueAt(fila, 2).toString();
 				//Opcion();
 				contador2 ++;
 				
@@ -134,63 +135,7 @@ public class Validacion {
 	    
 		
 	}
-	public static void Numero(JTable table,String a, String opcion,int columna, DefaultTableModel modelo) {
-		table = table;
-		a = a;
-		modelo = modelo;
-		isNumeric = true;
-		contador =1;
-		cantidad = 9;
-		columna = columna;
-		opcion = opcion;
-		int fila = table.getSelectedRow();
-		if (a.length() < cantidad || a.length() > cantidad) {
-			a = " ";
-			modelo.setValueAt(a, fila, columna);
-			a = JOptionPane.showInputDialog("Introducce el número correcto: ");
-			modelo.setValueAt(a, fila, columna);
-			int id = Integer.parseInt(table.getValueAt(fila, 0).toString());
-			String sql3 ="Update registro SET   '"+opcion+"' = '"+a+"'  WHERE id = '"+id+"'";
-			PreparedStatement actu;
-			try {
-				actu = connection.prepareStatement(sql3);
-				actu.executeUpdate();
-				JOptionPane.showMessageDialog(null, "Modificado en la validación");
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				System.out.println("Fallo de validación de número");
-			}
-		}
-		
-		if(a.length() == cantidad) {
-			for (int i = 0; i < a.length(); i++) {
-				char c = a.charAt(i);
-				if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == ' '){
-					isNumeric = true;
-					a = " ";
-					modelo.setValueAt(a, fila, columna);
-					a = JOptionPane.showInputDialog("Introducce el número de móvil: ");
-					modelo.setValueAt(a, fila, columna);
-					int id = Integer.parseInt(table.getValueAt(fila, 0).toString());
-					String sql3 ="Update registro SET  '"+opcion+"' = '"+a+"'  WHERE id = '"+id+"'";
-					PreparedStatement actu;
-					try {
-						actu = connection.prepareStatement(sql3);
-						actu.executeUpdate();
-						JOptionPane.showMessageDialog(null, "Modificado en la validación");
-					} catch (SQLException e) {
-						// TODO Auto-generated catch block
-						System.out.println("Fallo de validación de número");
-					}
-				}
-				
-			}
-			
-			
-		}
-		
-	}
-	
+
 	public static void Opcion() {
 		int Opcion2 = JOptionPane.showConfirmDialog(null, "Deseas modificar otro registro");
 		
@@ -205,6 +150,8 @@ public class Validacion {
 			
 		}
 	}
+	
+	
 	private static final String user = "dani";
 	private static final String pass = "1234";
 	private static String url = "jdbc:postgresql://127.0.0.1:5432/base_datos_dani_db";
@@ -212,9 +159,10 @@ public class Validacion {
 	private static JTable table;
 	private  static String convertir;
 	private  static JPanel contentPane;
-	private  static JTextField textField,textField_1,textField_2,textField_3,textField_4,textBuscar;
-	private static String x,y,remplazar,tub, nombre, apellido,movil,fijo,anotacion,opcion;
+	private  static JTextField textField,textField_1,textField_2,textField_3,textField_4,textBuscar,ValidarNombre;
+	private static String x,y,remplazar,tub, nombre, apellido,movil,fijo,anotacion,opcion,cadena;
 	private static boolean isNumeric;
 	private static  int contador, columna,contador2,cantidad;
 	private static  DefaultTableModel modelo;
+	private static KeyEvent evento;
 }
