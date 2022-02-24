@@ -16,6 +16,7 @@ public class Base_Datos {
 			connection= DriverManager.getConnection(url, user, pass);
 			System.out.println("Conexion con éxito");
 		}catch(Exception e) {
+			JOptionPane.showMessageDialog(null, "REVISAR CONEXIÓN!","SIN CONEXIÓN!!", JOptionPane.ERROR_MESSAGE);
 			System.out.println("REVISAR: Conexión sin exito");
 		}
 	}
@@ -33,7 +34,7 @@ public class Base_Datos {
 				stml.execute();
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				JOptionPane.showMessageDialog(null, "Error en la creación del registro!","REGISTRONO CREADO!!", JOptionPane.ERROR_MESSAGE);
 			}
 			
 		}
@@ -43,7 +44,6 @@ public class Base_Datos {
 			public static  void leerRegistros(JTextArea contenido) throws SQLException {
 				PreparedStatement stml = connection.prepareStatement("SELECT * FROM registro order by id");
 				ResultSet resultados = stml.executeQuery();
-				//System.out.println("id| nombre | apellido | movil | fijo | anotacion ");
 				while(resultados.next()) {
 					long id = resultados.getLong("id");
 					String nombre = resultados.getString("nombre");
@@ -51,15 +51,12 @@ public class Base_Datos {
 					String movil = resultados.getString("movil");
 					String fijo = resultados.getString("fijo");
 					String anotacion = resultados.getString("anotacion");
-					
-					//System.out.println(id + " | " + nombre + " | " + apellido + " | " + movil + " | " + fijo + " | " + anotacion);
-
-					
+				
 					try {
 						contenido.append("\n" + id + " | " + nombre + " | " + apellido + " | " + movil + " | " + fijo + " | " + anotacion);
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
-						e.printStackTrace();
+						JOptionPane.showMessageDialog(null, "Error en la lectura de los registros!","NO SE PUEDE LEER!!", JOptionPane.ERROR_MESSAGE);
 					}
 					
 
@@ -78,9 +75,12 @@ public class Base_Datos {
 				stml.setLong(1, resultado2);
 				int row = stml.executeUpdate();
 				if(row == 0) {
+					JOptionPane.showMessageDialog(null, "No se borró el registro con id");
 					System.out.println("No se borró el registro con id  " + resultado2);
 				}else if( row != 0) {
+					JOptionPane.showMessageDialog(null, "Se borró correctamente el registro");
 					System.out.println("Se borró correctamente el registro con id: " + resultado2);
+					
 				}
 			}
 			
@@ -99,8 +99,10 @@ public class Base_Datos {
 				stml.setLong(6, id);
 				int row = stml.executeUpdate();
 				if(row == 0) {
+					JOptionPane.showMessageDialog(null, "No se modificó nada!","SIN MODIFICAR!!", JOptionPane.ERROR_MESSAGE);
 					System.out.println("No se modificó nada");
 				}else {
+					JOptionPane.showMessageDialog(null, "Se modificó el registro con éxito");
 					System.out.println("Se modificó el registro");
 				}
 				
@@ -113,4 +115,3 @@ public class Base_Datos {
     private JTextArea contenido;
     private JTextField cid;
 }
-
