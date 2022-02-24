@@ -85,7 +85,7 @@ public class Base_Datos {
 			}
 			
 	
-//          Modificar los registros
+//          Modificar los registros -----
 			public static void ModificarDatos(long id, String NuevoNom, String NuevoApe, String movil,String fijo,String anotacion) throws SQLException {
 				PreparedStatement stml = connection.prepareStatement("UPDATE registro SET nombre = ?, apellido= ?, movil = ?, fijo =?, anotacion = ? WHERE id =?");
 				stml.setString(1,NuevoNom);
