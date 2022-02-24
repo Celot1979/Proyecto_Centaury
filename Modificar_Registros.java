@@ -33,6 +33,9 @@ public class Modificar_Registros extends JFrame {
 	private String convertir;
 	private JPanel contentPane;
 	private JTextField textField,textField_1,textField_2,textField_3,textField_4,textBuscar;
+	private String str ;
+	private String firstLtr ;
+	private String restLtrs;
 	
 
 	public static void main(String[] args) {
@@ -106,7 +109,14 @@ public class Modificar_Registros extends JFrame {
 			@Override
 			public void keyReleased(KeyEvent e) {
 				
-				Buscar(textBuscar.getText());
+				 str = textBuscar.getText();
+			     firstLtr = str.substring(0, 1);
+			     restLtrs = str.substring(1, str.length());
+			      
+			     firstLtr = firstLtr.toUpperCase();
+			     str = firstLtr + restLtrs;
+			     System.out.println(str);
+				Buscar(str);
 			}
 		});
 		textBuscar.setForeground(new Color(255, 140, 0));
@@ -187,27 +197,27 @@ public class Modificar_Registros extends JFrame {
 		nombre = table.getValueAt(fila, 1).toString();
 		//validar_Texto(nombre,modelo);
 		Validacion Validacion_Texto = new Validacion();
-		Validacion_Texto.Nombre(table, nombre,nombre, modelo);
+		Validacion_Texto.Nombre(table,nombre,modelo);
 		nombre = table.getValueAt(fila, 1).toString();
 		
 		
 //		
 		apellido = table.getValueAt(fila, 2).toString();
 		Validacion Validacion_Texto2 = new Validacion();
-		Validacion_Texto2.Apellido(table, apellido, modelo);
+		Validacion_Texto2.Apellido(table,apellido,modelo);
 		apellido = table.getValueAt(fila, 2).toString();
 		
 		
 		movil = table.getValueAt(fila, 3).toString();
-		Validacion Validacion_Texto3 = new Validacion();
-		Validacion_Texto3.Numero(table, movil,movil,3,modelo);
+		Validacion_Numeros V_movil = new Validacion_Numeros();
+		V_movil.Movil(table,movil,modelo);
 		movil = table.getValueAt(fila, 3).toString();
 		
 		
 		
 		fijo = table.getValueAt(fila, 4).toString();
-		Validacion Validacion_Texto4 = new Validacion();
-		Validacion_Texto4.Numero(table, fijo,fijo,4,modelo);
+		Validacion_Numeros V_fijo = new Validacion_Numeros();
+		V_fijo.Fijo(table,fijo,modelo);
 		fijo = table.getValueAt(fila, 4).toString();
 		
 		String anotacion = table.getValueAt(fila, 5).toString();
