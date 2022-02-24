@@ -5,7 +5,8 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import java.awt.Graphics;
-
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
 import java.awt.Image;
 
 import java.io.File;
@@ -18,7 +19,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
 import javax.swing.JLabel;
-
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import javax.swing.border.EmptyBorder;
@@ -65,8 +66,9 @@ public class Empezar extends JFrame {
 					Empezar frame = new Empezar();
 					
 					frame.setVisible(true);
+					
 				} catch (Exception e) {
-					e.printStackTrace();
+					JOptionPane.showMessageDialog(null, "Error en el sistema!","Atención!!", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
@@ -84,9 +86,10 @@ public class Empezar extends JFrame {
 
 	public Empezar() throws InterruptedException {
 		
+		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-		setBounds(400,400,800,600);
+		setBounds(400,400,1920,1080);
 
 		Aplicacion.LaminaImagen laminaImagen = new LaminaImagen();
 
@@ -102,9 +105,9 @@ public class Empezar extends JFrame {
 
 		LB1.setForeground(new Color(169, 169, 169));
 
-		LB1.setFont(new Font("Lucida Grande", Font.PLAIN, 30));
+		LB1.setFont(new Font("Garuda", Font.PLAIN, 40));
 
-		LB1.setBounds(427, 18, 326, 41);
+		LB1.setBounds(1013, 37, 464, 58);
 
 		
 
@@ -115,10 +118,11 @@ public class Empezar extends JFrame {
 		
 
 		LB2 = new JLabel("La tecnología en tu mano, fácil e intuitiva");
+		LB2.setFont(new Font("Dialog", Font.BOLD, 25));
 
 		LB2.setForeground(new Color(192, 192, 192));
 
-		LB2.setBounds(462, 71, 270, 41);
+		LB2.setBounds(904, 107, 726, 41);
 
 		laminaImagen.add(LB2);
 
@@ -126,15 +130,13 @@ public class Empezar extends JFrame {
 
 		btn1 = new JButton("Registrar Contacto");
 
-		btn1.setHorizontalAlignment(SwingConstants.LEFT);
-
-		btn1.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
+		btn1.setFont(new Font("Dialog", Font.BOLD | Font.ITALIC, 25));
 
 		btn1.setBackground(new Color(240, 255, 255));
 
 		btn1.setForeground(new Color(255, 140, 0));
 
-		btn1.setBounds(472, 106, 247, 48);
+		btn1.setBounds(914, 160, 589, 76);
 
 		ImageIcon Imagen_boton = new ImageIcon("/home/dani/eclipse-workspace/CRUD_WB/src/IMG/BT1.png");
 
@@ -150,8 +152,6 @@ public class Empezar extends JFrame {
 
 		btn2 = new JButton("Mostrar Contactos");
 
-		btn2.setHorizontalAlignment(SwingConstants.LEFT);
-
 		Acciones_Botones nuevo = new Acciones_Botones(btn1,btn2,btn3,btn4,btn5);
 		btn2.addActionListener(nuevo);
 
@@ -159,11 +159,11 @@ public class Empezar extends JFrame {
 
 		btn2.setForeground(new Color(255, 140, 0));
 
-		btn2.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
+		btn2.setFont(new Font("Dialog", Font.BOLD | Font.ITALIC, 25));
 
 		btn2.setBackground(new Color(240, 255, 255));
 
-		btn2.setBounds(472, 170, 247, 48);
+		btn2.setBounds(914, 257, 589, 76);
 
 		btn1.setIcon(Imagen_boton);
 
@@ -172,8 +172,6 @@ public class Empezar extends JFrame {
 		
 
 		btn3 = new JButton("Modificar  Contactos");
-
-		btn3.setHorizontalAlignment(SwingConstants.LEFT);
 		Acciones_Botones tres = new Acciones_Botones(btn1,btn2,btn3,btn4,btn5);
 
 		btn3.addActionListener(tres);
@@ -184,11 +182,11 @@ public class Empezar extends JFrame {
 
 		btn3.setForeground(new Color(255, 140, 0));
 
-		btn3.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
+		btn3.setFont(new Font("Dialog", Font.BOLD | Font.ITALIC, 25));
 
 		btn3.setBackground(new Color(240, 255, 255));
 
-		btn3.setBounds(472, 240, 247, 48);
+		btn3.setBounds(914, 354, 589, 76);
 
 		laminaImagen.add(btn3);
 
@@ -196,17 +194,18 @@ public class Empezar extends JFrame {
 
 		btn4 = new JButton("Borrar Contactos");
 
-		btn4.setHorizontalAlignment(SwingConstants.LEFT);
-
 		btn4.setIcon(new ImageIcon("/home/dani/eclipse-workspace/CRUD_WB/src/IMG/BT1.png"));
 
 		btn4.setForeground(new Color(255, 140, 0));
 
-		btn4.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
+		btn4.setFont(new Font("Dialog", Font.BOLD | Font.ITALIC, 25));
 
 		btn4.setBackground(new Color(240, 255, 255));
 
-		btn4.setBounds(472, 310, 247, 48);
+		btn4.setBounds(914, 451, 589, 76);
+		Acciones_Botones cuatro = new Acciones_Botones(btn1,btn2,btn3,btn4,btn5);
+
+		btn4.addActionListener(cuatro);
 
 		laminaImagen.add(btn4);
 
@@ -214,17 +213,15 @@ public class Empezar extends JFrame {
 
 		btn5 = new JButton("SALIR");
 
-		btn5.setHorizontalAlignment(SwingConstants.LEFT);
-
 		btn5.setIcon(new ImageIcon("/home/dani/eclipse-workspace/CRUD_WB/src/IMG/BT1.png"));
 
 		btn5.setForeground(new Color(255, 140, 0));
 
-		btn5.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
+		btn5.setFont(new Font("Dialog", Font.BOLD | Font.ITALIC, 25));
 
 		btn5.setBackground(new Color(240, 255, 255));
 
-		btn5.setBounds(472, 380, 247, 48);
+		btn5.setBounds(914, 548, 589, 76);
 
 		Acciones_Botones cinco = new Acciones_Botones(btn1,btn2,btn3,btn4,btn5);
 
@@ -248,7 +245,7 @@ class LaminaImagen extends JPanel{
 
 		super.paintComponent(g);
 
-		File miImagen = new File("/home/dani/eclipse-workspace/CRUD_WB/src/IMG/Img2_2.png");
+		File miImagen = new File("/home/dani/eclipse-workspace/CRUD_WB/src/IMG/Fondo_Pantalla_Completa_Portatil.png");
 
 		try {
 
@@ -257,10 +254,7 @@ class LaminaImagen extends JPanel{
 		} catch (IOException e) {
 
 			// TODO Auto-generated catch block
-
-			//e.printStackTrace();
-
-			System.out.println("Un eerrorr");
+			JOptionPane.showMessageDialog(null, "No se ha cargado la imagen - LaminaImagen - JPanel!","Atención!!", JOptionPane.ERROR_MESSAGE);
 
 		}
 
