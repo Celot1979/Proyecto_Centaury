@@ -35,14 +35,17 @@ public class Registros extends JFrame {
 	private JTextField textNombre,textApellido,textMovil,textFijo;
 	private JTextArea textArea;
 	private String nombre,apellido,movil,fijo,anotacion;
+	private boolean control = false;
+	private int cantidad = 0;
 	private static final String user = "dani";
 	private static final String pass = "1234";
 	private static String url = "jdbc:postgresql://127.0.0.1:5432/base_datos_dani_db";
     private  static Connection connection;
-
-	/**
-	 * Launch the application.
-	 */
+    private String str;
+    private String firstLtr;
+    private String restLtrs;
+     
+  
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -50,7 +53,7 @@ public class Registros extends JFrame {
 					Registros frame = new Registros();
 					frame.setVisible(true);
 				} catch (Exception e) {
-					e.printStackTrace();
+					JOptionPane.showMessageDialog(null, "REVISAR !","Error fatal en archivo Registros!!", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
@@ -65,7 +68,7 @@ public class Registros extends JFrame {
 	public Registros() {
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(1200,400,400,600);
+		setBounds(1200,225,400,600);
 		Aplicacion.LaminaImagen_Fondo laminaImagen_Fondo = new LaminaImagen_Fondo();
 		getContentPane().add(laminaImagen_Fondo);
 		laminaImagen_Fondo.setLayout(null);
@@ -125,8 +128,32 @@ public class Registros extends JFrame {
 		textNombre.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
+/*
+ * 			En el siguiente grupo de líneas de código comprobamos que la 1ª letra sea mayúscula.
+ * 			En el caso que no lo sea, la covertimos.		
+ */
+				String texto= textNombre.getText();
+				if(texto.length()>0){
+				char primero=texto.charAt(0);
+				texto=Character.toUpperCase(primero)+texto.substring(1, texto.length());
+				textNombre .setText(texto);
+				}
+/*			
+ * 			Validamos que lo introduccido sea letra, no número.
+ * 			Además le damos licencia para que pueda dar espacio y tilde en caso de necesidad.
+ */
+				
 				char c = e.getKeyChar();
-				if((c < 'a' || c > 'z') && (c < 'A' || c > 'Z') && (c != KeyEvent.VK_SPACE) && (c == KeyEvent.VK_DEAD_TILDE) e.consume();
+				
+				if(c != KeyEvent.VK_SPACE) {
+					String texto2= textNombre.getText();
+					if(texto2.length()>0){
+						char primero=texto2.charAt(0);
+						texto2=Character.toUpperCase(primero)+texto2.substring(1, texto2.length());
+						textNombre .setText(texto2);
+				}
+				}
+				if((c < 'a' || c > 'z') && (c < 'A' || c > 'Z') && (c != KeyEvent.VK_SPACE)  && (c == KeyEvent.VK_DEAD_TILDE)) e.consume();
 			}
 		});
 		textNombre.setForeground(new Color(218, 165, 32));
@@ -139,8 +166,22 @@ public class Registros extends JFrame {
 		textApellido.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
+/*
+* 			En el siguiente grupo de líneas de código comprobamos que la 1ª letra sea mayúscula.
+* 			En el caso que no lo sea, la covertimos.		
+*/
+				String texto2= textApellido.getText();
+				if(texto2.length()>0){
+					char segundo=texto2.charAt(0);
+					texto2=Character.toUpperCase(segundo)+texto2.substring(1, texto2.length());
+					textApellido .setText(texto2);
+				}
+/*			
+* 			Validamos que lo introduccido sea letra, no número.
+* 			Además le damos licencia para que pueda dar espacio y tilde en caso de necesidad.
+s*/				
 				char c = e.getKeyChar();
-				if((c < 'a' || c > 'z') && (c < 'A' || c > 'Z')&& (c != KeyEvent.VK_SPACE)&& (c == KeyEvent.VK_DEAD_TILDE) e.consume();
+				if((c < 'a' || c > 'z') && (c < 'A' || c > 'Z')&& (c != KeyEvent.VK_SPACE) && (c == KeyEvent.VK_DEAD_TILDE)) e.consume();
 			}
 		});
 		textApellido.setForeground(new Color(218, 165, 32));
@@ -193,7 +234,10 @@ public class Registros extends JFrame {
 		laminaImagen_Fondo.add(textFijo);
 
 		JButton btn1_Registrar = new JButton("Registrar");
-		btn1_Registrar.setBounds(60, 510, 117, 29);
+		btn1_Registrar.setIcon(new ImageIcon("/home/dani/eclipse-workspace/CRUD_WB/src/IMG/BT1.png"));
+		btn1_Registrar.setForeground(new Color(255, 140, 0));
+		btn1_Registrar.setFont(new Font("Dialog", Font.BOLD, 14));
+		btn1_Registrar.setBounds(60, 510, 155, 29);
 		btn1_Registrar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -208,6 +252,7 @@ public class Registros extends JFrame {
 						JOptionPane.showMessageDialog(null, "Debe de rellenar los campos para poder efectuar el registro",
 								"Atención!", JOptionPane.ERROR_MESSAGE);
 					}
+					
 				}else {
 					control = true;
 				}
@@ -231,13 +276,15 @@ public class Registros extends JFrame {
 				}catch(Exception v1) {
 					JOptionPane.showMessageDialog(null, "No se ha podido efectuar el registro");
 				}
+				
 			}
+
 		});
 
 		laminaImagen_Fondo.add(btn1_Registrar);
 		
 		JButton btnNewButtonBorrar = new JButton("Borrar ");
-		btnNewButtonBorrar.setBounds(189, 510, 117, 29);
+		btnNewButtonBorrar.setBounds(227, 539, 117, -12);
 		btnNewButtonBorrar.addActionListener(new ActionListener() {
 
 			@Override
@@ -254,7 +301,17 @@ public class Registros extends JFrame {
 		});
 		laminaImagen_Fondo.add(btnNewButtonBorrar);
 
-
+		JButton btnAtrasRegistro = new JButton("Atrás");
+		btnAtrasRegistro.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
+		btnAtrasRegistro.setIcon(new ImageIcon("/home/dani/eclipse-workspace/CRUD_WB/src/IMG/BT1.png"));
+		btnAtrasRegistro.setForeground(new Color(255, 140, 0));
+		btnAtrasRegistro.setFont(new Font("Lucida Grande", Font.PLAIN, 14));
+		btnAtrasRegistro.setBounds(227, 510, 117, 29);
+		laminaImagen_Fondo.add(btnAtrasRegistro);
 	}
 }
 
@@ -271,12 +328,7 @@ class LaminaImagen_Fondo extends JPanel{
 			imagen = ImageIO.read(miImagen);
 
 		} catch (IOException e) {
-
-			// TODO Auto-generated catch block
-
-			//e.printStackTrace();
-
-			System.out.println("Un error");
+			JOptionPane.showMessageDialog(null, "No se ha podido leer la imagen de el JPanel de elarchivo Registros!","FALLO DEL SISTEMA!!", JOptionPane.ERROR_MESSAGE);
 
 		}
 
