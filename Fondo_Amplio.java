@@ -7,7 +7,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
-
+// Esta clase es para gestionar el fondo de la pantalla principal
 public class Fondo_Amplio extends JPanel{
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
