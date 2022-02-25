@@ -28,7 +28,6 @@ import java.sql.SQLException;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-
 public class Registros extends JFrame {
 
 	private JPanel contentPane;
@@ -238,6 +237,11 @@ s*/
 		btn1_Registrar.setForeground(new Color(255, 140, 0));
 		btn1_Registrar.setFont(new Font("Dialog", Font.BOLD, 14));
 		btn1_Registrar.setBounds(60, 510, 155, 29);
+//		Se sigue la lógica de pasar la info de los JTextField a string.
+//		Posteriomente se valida que no esté vacios los campos.
+//		Se usa el método crear -que está en la BBDD)
+//		Se borran los campos para un posible registro nuevo
+		
 		btn1_Registrar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -247,6 +251,7 @@ s*/
 				String mov = textMovil.getText();
 				String fij = textFijo.getText();
 				String cano = textArea .getText();
+//				Código que no permite realizar un registro en blanco.	
 				if(nom.isEmpty() || ape.isEmpty() || mov.isEmpty() || fij.isEmpty() || cano.isEmpty()) {
 					if(control ==false && cantidad == 0) {
 						JOptionPane.showMessageDialog(null, "Debe de rellenar los campos para poder efectuar el registro",
@@ -333,10 +338,6 @@ class LaminaImagen_Fondo extends JPanel{
 		}
 
 		g.drawImage(imagen,0,0, null);
-
-		//g.copyArea(50, 50, 128, 128, 350, 250);// Copiar y pgar una imagen
-
-
 
 	}
 
