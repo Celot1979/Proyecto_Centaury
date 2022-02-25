@@ -1,5 +1,11 @@
 package Aplicacion;
-
+/**
+ * Este archivo es el encargado junto con su clase, métodos y archivos asociados a realizar 
+ * modificaciones parciales o totales de los registros introduccidos.
+ * 
+ * Utilizando la lógica llevada acabo hasta ahora, se ha ido usando los métodos que buscan o muestran.
+ * El único nuevo es el de actualizar_Datos que es el que realiza las modificaciones.
+ */
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -66,7 +72,7 @@ public class Modificar_Registros extends JFrame {
 		
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(48, 200, 922, 300);
+		scrollPane_1.setBounds(48, 200, 922, 120);
 		laminaImagen_Fondo_Mostrar.add(scrollPane_1);
 		
 		mostrar();
@@ -108,15 +114,19 @@ public class Modificar_Registros extends JFrame {
 		textBuscar.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
-				
-				 str = textBuscar.getText();
-			     firstLtr = str.substring(0, 1);
-			     restLtrs = str.substring(1, str.length());
-			      
-			     firstLtr = firstLtr.toUpperCase();
-			     str = firstLtr + restLtrs;
-			     System.out.println(str);
-				Buscar(str);
+				try {
+					str = textBuscar.getText();
+				     firstLtr = str.substring(0, 1);
+				     restLtrs = str.substring(1, str.length());
+				      
+				     firstLtr = firstLtr.toUpperCase();
+				     str = firstLtr + restLtrs;
+				     System.out.println(str);
+					Buscar(str);
+				}catch(StringIndexOutOfBoundsException t){
+					System.out.println("");
+				}
+				 
 			}
 		});
 		textBuscar.setForeground(new Color(255, 140, 0));
@@ -137,11 +147,27 @@ public class Modificar_Registros extends JFrame {
 		btnArasModi.setForeground(new Color(255, 140, 0));
 		btnArasModi.setFont(new Font("Lucida Grande", Font.PLAIN, 14));
 		
+		JLabel lblNewLabel1 = new JLabel("1º Selecione con el curso (Doble clic) el campo que desea modificar.");
+		lblNewLabel1.setBounds(48, 394, 548, 15);
+		laminaImagen_Fondo_Mostrar.add(lblNewLabel1);
+		
+		JLabel lblNewLabel = new JLabel("2º Modifique el campo. Pulse  ENTER");
+		lblNewLabel.setFont(new Font("Dialog", Font.BOLD | Font.ITALIC, 14));
+		lblNewLabel.setBounds(48, 421, 491, 15);
+		laminaImagen_Fondo_Mostrar.add(lblNewLabel);
+		
+		JLabel lblPresioneElBotn = new JLabel("3º Presione el botón MODIFICAR");
+		lblPresioneElBotn.setFont(new Font("Dialog", Font.BOLD | Font.ITALIC, 14));
+		lblPresioneElBotn.setBounds(48, 448, 491, 15);
+		laminaImagen_Fondo_Mostrar.add(lblPresioneElBotn);
+		
 		
 		
 		
 	}
-	
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------	
+//--------------------------------------------- MÉTODOS ACCIONES --------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------
 	public  void mostrar() {
 		
 		PreparedStatement stml =null;
@@ -189,10 +215,12 @@ public class Modificar_Registros extends JFrame {
 	public void actualizarDatos() {
 		int fila = table.getSelectedRow();
 		int id = Integer.parseInt( this.table.getValueAt(fila, 0).toString());
-/*		
- * 		Se crea un nuevo archivo - validación -  que aloja la clase validadción.
- * 		Con los métodos que validan el contenido de las celdas de JTable.
+		control = false;
+/*	
+ * 		Se crean 2 nuevos archivos:
  * 		
+ * 		1º Validación de las celdas de la JTable que contienen caracteres de letras.
+ * 		2º Validación de las celdas de la JTable que contienen caracteres numéricos.
  */
 		nombre = table.getValueAt(fila, 1).toString();
 		//validar_Texto(nombre,modelo);
@@ -227,11 +255,35 @@ public class Modificar_Registros extends JFrame {
 			PreparedStatement actu = connection.prepareStatement(sql2);
 			actu.executeUpdate();
 			JOptionPane.showMessageDialog(null, "Modificado con éxito");
+			
 			mostrar();
+			control = true;
 		}catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Hay un bug. No se ha podido modificar el registro!",
 				      "Atención!", JOptionPane.ERROR_MESSAGE);
 		}
+		
+		if(control == true) {
+			int Opcion = JOptionPane.showConfirmDialog(null, "Deseas modificar otro registro");
+			
+			if ( Opcion ==0) {
+				
+				try {
+					Modificar_Registros Modificar2 = new Modificar_Registros();
+					Modificar2.setVisible(false);
+					dispose();
+					Modificar2.setVisible(true);
+					
+				}catch (ArrayIndexOutOfBoundsException et) {
+					System.out.println("Error");
+				}
+			}else if(Opcion == 1) {
+				dispose();
+				System.out.println("Continuamos");
+				
+			}
+		}
+		
 		
 	}
 	
@@ -289,7 +341,7 @@ public class Modificar_Registros extends JFrame {
 	
 	
 	private String x,remplazar,tub, nombre, apellido,movil,fijo,anotacion;
-	private boolean isNumeric;
+	private boolean isNumeric, control;
 	private int contador, columna;
 	private DefaultTableModel modelo;
 }
