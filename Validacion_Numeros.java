@@ -29,38 +29,31 @@ public class Validacion_Numeros {
 		modelo = modelo;
 		isNumeric = true;
 		contador =1;
-		cantidad = 9;
-		
+		cantidad = 8;
 		opcion = opcion;
-		int fila = table.getSelectedRow();
-		if (a.length() < cantidad || a.length() > cantidad) {
-			a = " ";
-			modelo.setValueAt(a, fila, 3);
-			a = JOptionPane.showInputDialog("Introducce el número correcto: ");
-			modelo.setValueAt(a, fila,3);
-			int id = Integer.parseInt(table.getValueAt(fila, 0).toString());
-			String sql3 ="Update registro SET   movil = '"+a+"'  WHERE id = '"+id+"'";
-			PreparedStatement actu;
-			try {
-				actu = connection.prepareStatement(sql3);
-				actu.executeUpdate();
-				JOptionPane.showMessageDialog(null, "Modificado en la validación");
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				System.out.println("Fallo de validación de número en el método del móvil");
-			}
-		}
-		
-		if(a.length() == cantidad) {
+		int fila2 = table.getSelectedRow();
+/*
+ * 		1º Validamos que la cantidad de digitos sean 8.
+ * 
+ * 		2º Se revisa caracter porcaracter si es letra o número.
+ * 
+ * 		3º En el caso que alguno de los caracteres sea una letra, automaticamente
+ * 		se solicita al usuario - mediante nua ventana emergente - que debe modificar
+ * 		lo valores introduccidos.
+ * 
+ * 		4º Se implemeta en el archivo - Modificar_Registros- la llamada al método opciones
+ * 		para que le de la posibilidad al usaurio de realizar otra modificación en los registros
+ */
+		if(a.length() == cantidad){
 			for (int i = 0; i < a.length(); i++) {
 				char c = a.charAt(i);
 				if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == ' '){
 					isNumeric = true;
 					a = " ";
-					modelo.setValueAt(a, fila, 3);
+					modelo.setValueAt(a, fila2, 3);
 					a = JOptionPane.showInputDialog("Introducce el número de móvil: ");
-					modelo.setValueAt(a, fila, 3);
-					int id = Integer.parseInt(table.getValueAt(fila, 0).toString());
+					modelo.setValueAt(a, fila2, 3);
+					int id = Integer.parseInt(table.getValueAt(fila2, 0).toString());
 					String sql3 ="Update registro SET  movil = '"+a+"'  WHERE id = '"+id+"'";
 					PreparedStatement actu;
 					try {
@@ -74,10 +67,27 @@ public class Validacion_Numeros {
 				}
 				
 			}
-			
-			
 		}
 		
+		if((a.length() < cantidad) || (a.length() > cantidad)) {
+			//System.out.println("Es una cantidad menor ó mayor");
+			a = " ";
+			modelo.setValueAt(a, fila2, 3);
+			a = JOptionPane.showInputDialog("Introducce el número correcto: ");
+			modelo.setValueAt(a, fila2,3);
+			int id = Integer.parseInt(table.getValueAt(fila2, 0).toString());
+			String sql3 ="Update registro SET   movil = '"+a+"'  WHERE id = '"+id+"'";
+			PreparedStatement actu;
+			try {
+				actu = connection.prepareStatement(sql3);
+				actu.executeUpdate();
+				JOptionPane.showMessageDialog(null, "Modificado en la validación");
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				System.out.println("Fallo de validación de número en el método del móvil");
+			}
+		}
+
 	}
 	
 	public static void Fijo(JTable table,String t, DefaultTableModel modelo) {
@@ -86,42 +96,25 @@ public class Validacion_Numeros {
 		modelo = modelo;
 		isNumeric = true;
 		contador =1;
-		cantidad = 9;
-		
+		cantidad = 8;
 		opcion = opcion;
-		int fila = table.getSelectedRow();
-		if (t.length() < cantidad || t.length() > cantidad) {
-			t = " ";
-			modelo.setValueAt(t, fila, 4);
-			t = JOptionPane.showInputDialog("Introducce el número correcto: ");
-			modelo.setValueAt(t, fila,4);
-			int id = Integer.parseInt(table.getValueAt(fila, 0).toString());
-			String sql4 ="Update registro SET   fijo = '"+t+"'  WHERE id = '"+id+"'";
-			PreparedStatement actu;
-			try {
-				actu = connection.prepareStatement(sql4);
-				actu.executeUpdate();
-				JOptionPane.showMessageDialog(null, "Modificado en la validación");
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				System.out.println("Fallo de validación de número en el método del móvil");
-			}
-		}
+		int fila3 = table.getSelectedRow();
 		
-		if(t.length() == cantidad) {
+
+		if(t.length() == cantidad){
 			for (int i = 0; i < t.length(); i++) {
 				char c = t.charAt(i);
 				if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == ' '){
 					isNumeric = true;
 					t = " ";
-					modelo.setValueAt(t, fila, 4);
+					modelo.setValueAt(t, fila3, 4);
 					t = JOptionPane.showInputDialog("Introducce el número de móvil: ");
-					modelo.setValueAt(t, fila, 4);
-					int id = Integer.parseInt(table.getValueAt(fila, 0).toString());
-					String sql4 ="Update registro SET  fijo = '"+t+"'  WHERE id = '"+id+"'";
+					modelo.setValueAt(t, fila3, 4);
+					int id = Integer.parseInt(table.getValueAt(fila3, 0).toString());
+					String sql3 ="Update registro SET  movil = '"+t+"'  WHERE id = '"+id+"'";
 					PreparedStatement actu;
 					try {
-						actu = connection.prepareStatement(sql4);
+						actu = connection.prepareStatement(sql3);
 						actu.executeUpdate();
 						JOptionPane.showMessageDialog(null, "Modificado en la validación");
 					} catch (SQLException e) {
@@ -131,12 +124,28 @@ public class Validacion_Numeros {
 				}
 				
 			}
-			
-			
 		}
 		
+		if((t.length() < cantidad) || (t.length() > cantidad)) {
+			//System.out.println("Es una cantidad menor ó mayor");
+			t= " ";
+			modelo.setValueAt(t, fila3, 4);
+			t = JOptionPane.showInputDialog("Introducce el número correcto: ");
+			modelo.setValueAt(t, fila3,4);
+			int id = Integer.parseInt(table.getValueAt(fila3, 0).toString());
+			String sql3 ="Update registro SET   movil = '"+t+"'  WHERE id = '"+id+"'";
+			PreparedStatement actu;
+			try {
+				actu = connection.prepareStatement(sql3);
+				actu.executeUpdate();
+				JOptionPane.showMessageDialog(null, "Modificado en la validación");
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				System.out.println("Fallo de validación de número en el método del móvil");
+			}
+		}
 	}
-	
+//	Método para volver a preguntar al usario si desea modificar algún campo de otro o el mismo registro
 	public static void Opcion() {
 		int Opcion2 = JOptionPane.showConfirmDialog(null, "Deseas modificar otro registro");
 		
