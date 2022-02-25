@@ -9,7 +9,10 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-
+/*
+ *  En este archivo se gestiona lo concerniente a la base de datos.
+ *  Se crean los relativos métodos para que se pueda efectuar el CRUD
+ */
 public class Base_Datos {
 	public static void initConnection() {
 		try {
@@ -85,7 +88,7 @@ public class Base_Datos {
 			}
 			
 	
-//          Modificar los registros -----
+//          Modificar los registros
 			public static void ModificarDatos(long id, String NuevoNom, String NuevoApe, String movil,String fijo,String anotacion) throws SQLException {
 				PreparedStatement stml = connection.prepareStatement("UPDATE registro SET nombre = ?, apellido= ?, movil = ?, fijo =?, anotacion = ? WHERE id =?");
 				stml.setString(1,NuevoNom);
