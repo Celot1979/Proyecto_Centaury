@@ -1,7 +1,5 @@
 package Aplicacion;
 
-
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
@@ -32,12 +30,11 @@ import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
-
-
-
+/*
+ *  La función de esté archivo con su clase princial - como bien están llamadas- son para borrar registros-
+ *  Se ha implementado para que se pueda realizar - a voluntad del usuario- varíos borrados.
+ */
 public class Borrar_Registros extends JFrame {
-
-	
 	private static final String user = "dani";
 	private static final String pass = "1234";
 	private static String url = "jdbc:postgresql://127.0.0.1:5432/base_datos_dani_db";
@@ -78,10 +75,8 @@ public class Borrar_Registros extends JFrame {
 	public Borrar_Registros() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(1200,400,1000,600);
-		
+//		Se aplica el fondo especifico de la foto llamando al método Fondo_Amplio
 		Aplicacion.Fondo_Amplio laminaImagen_Fondo_Mostrar = new Fondo_Amplio();
-		
-		
 		getContentPane().add(laminaImagen_Fondo_Mostrar);
 		laminaImagen_Fondo_Mostrar.setLayout(null);
 
@@ -91,8 +86,6 @@ public class Borrar_Registros extends JFrame {
 		
 		mostrar();
 		Buscar("");
-		
-		
 		scrollPane_1.setColumnHeaderView(table);
 		
 		JPanel panel = new JPanel();
@@ -101,19 +94,22 @@ public class Borrar_Registros extends JFrame {
 		panel.setBounds(48, 84, 922, 86);
 		laminaImagen_Fondo_Mostrar.add(panel);
 		
-		JButton btnModificar = new JButton("Borrar");
-		btnModificar.addActionListener(new ActionListener() {
+		JButton btnBorrar = new JButton("Borrar");
+		btnBorrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+/*				La lógica es la siguiente:
+ * 				Borramos datos con el método borrado( más abajo desarrollado).
+ * 				Creamos un nuevo JFrame para que se pueda refrescar y realizar más borrados de registro
+ */
 				Borrar_Datos();
 				Borrar_Registros frame2 = new Borrar_Registros();
 				frame2.setVisible(true);
-				
-				
 				int Opcion2 = JOptionPane.showConfirmDialog(null, "Deseas borrar otro registro");
 				
 				if ( Opcion2 ==0) {
 					System.out.println("Continuamos");
 				}else if(Opcion2 == 1) {
+//					Posibilita la reentrada de una nueva ventana para efectuar un nuevo registro
 					dispose();
 					Borrar_Registros frame = new Borrar_Registros();
 					frame.setVisible(true);
@@ -134,11 +130,11 @@ public class Borrar_Registros extends JFrame {
 		lblBuscar.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
 		lblBuscar.setBounds(36, 29, 116, 25);
 		panel.add(lblBuscar);
-		btnModificar.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
-		btnModificar.setForeground(new Color(255, 140, 0));
-		btnModificar.setIcon(new ImageIcon("/home/dani/eclipse-workspace/CRUD_WB/src/IMG/BT1.png"));
-		btnModificar.setBounds(428, 23, 129, 37);
-		panel.add(btnModificar);
+		btnBorrar.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
+		btnBorrar.setForeground(new Color(255, 140, 0));
+		btnBorrar.setIcon(new ImageIcon("/home/dani/eclipse-workspace/CRUD_WB/src/IMG/BT1.png"));
+		btnBorrar.setBounds(428, 23, 129, 37);
+		panel.add(btnBorrar);
 		
 		textBuscar = new JTextField();
 		textBuscar.addKeyListener(new KeyAdapter() {
@@ -153,10 +149,7 @@ public class Borrar_Registros extends JFrame {
 			     str = firstLtr + restLtrs;
 			     System.out.println(str);
 				Buscar(str);
-				
-				
 
-				
 			}
 		});
 		textBuscar.setForeground(new Color(255, 140, 0));
@@ -197,13 +190,12 @@ public class Borrar_Registros extends JFrame {
 		btnAtrasBorrar.setFont(new Font("Lucida Grande", Font.PLAIN, 14));
 		btnAtrasBorrar.setBounds(48, 22, 117, 29);
 		laminaImagen_Fondo_Mostrar.add(btnAtrasBorrar);
-	
-		
+
 	}
-	
-	
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------	
+//--------------------------------------------- MÉTODOS ACCIONES --------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------
 public  void mostrar() {
-		
 		PreparedStatement stml =null;
 		ResultSet resultados = null;
 		DefaultTableModel modelo = new DefaultTableModel();
@@ -240,9 +232,7 @@ public  void mostrar() {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
-		
+
 	}
 public void Buscar(String nombre) {
 	try {
@@ -295,8 +285,7 @@ public void Borrar_Datos() {
 	int fila = table.getSelectedRow();
 	//int id = Integer.parseInt( this.table.getValueAt(fila, 0).toString());
 	String valor = table.getValueAt(fila, 0).toString();
-	
-	
+
 	/*String nombre = table.getValueAt(fila, 1).toString();
 	String apellido = table.getValueAt(fila, 2).toString();
 	String movil = table.getValueAt(fila, 3).toString();
