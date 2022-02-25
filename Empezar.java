@@ -76,11 +76,9 @@ public class Empezar extends JFrame {
 
 	/**
 
-	* Create the frame.
-
-	* @throws InterruptedException 
-
-	* En el método comiemza se genera todo el código del JFrame principal.
+	* En el método  se genera todo el código del JFrame principal.
+	* 
+	* De él parte la posibilidad de todas opciones.
 
 	*/
 
@@ -238,7 +236,7 @@ public class Empezar extends JFrame {
 	}
 
 }
-
+//  Gestiona la imagen de fondo de la pantalla principal
 class LaminaImagen extends JPanel{
 
 	public void paintComponent(Graphics g) {
