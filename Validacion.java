@@ -12,7 +12,16 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
-
+/*
+ * 	    1º Se revisa caracter porcaracter si es letra o número.
+ * 
+ * 		2º En el caso que alguno de los caracteres sea un número, automaticamente
+ * 		se solicita al usuario - mediante nua ventana emergente - que debe modificar
+ * 		lo valores introduccidos.
+ * 
+ * 		3º Se implemeta en el archivo - Modificar_Registros- la llamada al método opciones
+ * 		para que le de la posibilidad al usaurio de realizar otra modificación en los registros
+ */
 public class Validacion {
 	public Validacion() {
 		try {
@@ -135,7 +144,7 @@ public class Validacion {
 	    
 		
 	}
-
+//	Método para volver a preguntar al usario si desea modificar algún campo de otro o el mismo registr
 	public static void Opcion() {
 		int Opcion2 = JOptionPane.showConfirmDialog(null, "Deseas modificar otro registro");
 		
