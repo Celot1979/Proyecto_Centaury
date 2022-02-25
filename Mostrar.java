@@ -29,7 +29,11 @@ import javax.swing.border.TitledBorder;
 import javax.swing.JTextField;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-
+/***
+ * Archivo creado para mostrar una JTable con los registros efectuados hasta el momento.
+ * 
+ * Métodos habituales de busqueda y mostrar.
+ ***/
 public class Mostrar extends JFrame {
 	private static final String user = "dani";
 	private static final String pass = "1234";
@@ -43,7 +47,7 @@ public class Mostrar extends JFrame {
     private String firstLtr ;
     private String restLtrs;
 	
-	//private String[][] datos = {{"1", "Daniel", "Gil Martinez", "5665", "4545455", "Hola"}};
+	
 	
 	/**
 	 * Launch the application.
@@ -110,8 +114,6 @@ public class Mostrar extends JFrame {
 			}
 			modelo.addRow(filas);
 		}
-	
-		
 		scrollPane.setViewportView(table);
 		
 		JPanel panel = new JPanel();
@@ -155,10 +157,10 @@ public class Mostrar extends JFrame {
 		btnAtras.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
 		btnAtras.setBounds(33, 25, 117, 29);
 		laminaImagen_Fondo_Mostrar.add(btnAtras);
- 
-		
-		
 	}
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------	
+//--------------------------------------------- MÉTODOS ACCIONES --------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------
 	public void Buscar(String nombre) {
 		try {
 			connection= DriverManager.getConnection(url, user, pass);
@@ -201,7 +203,5 @@ public class Mostrar extends JFrame {
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(null, "REVISAR !","No se ha podido buscar el registro. Revisé archivo Mostrar- Buscar!!", JOptionPane.ERROR_MESSAGE);
 		}
-		
-		
 	}
 }
