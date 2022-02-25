@@ -7,7 +7,11 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-
+/*
+ *  Esta clase gestiona las acciones de los botones con los archivos que contienen lo métodos que realizan las funciones.
+ *  en el constructor pasamos por parámetro todos los botones de la página principal.
+ *  Posteriormente se presionará y efectuará la entrada de un nuevo JFrame de la acción escogida
+ */
 public class Acciones_Botones implements ActionListener {
 	public Acciones_Botones(JButton btn1, JButton btn2, JButton btn3, JButton btn4, JButton btn5) {
 
